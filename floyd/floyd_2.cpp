@@ -42,49 +42,15 @@ void print_all(int n, int array[][N]){
 	cout<<endl;
 }
 
-// void print_P(int n, int array[][N]){
-// 	for(int i=0; i<=n-1; i++){
-// 		for(int j=0; j<=n-1; j++){
-// 			if(array[i][j]!=0){
-// 				cout<<array[i][j]+1<<'\t';
-// 			}
-// 			else{
-// 				cout<<array[i][j]<<'\t';
-// 			}
-// 		}
-// 		cout<<endl;
-// 	}
-// 	cout<<endl;
-// }
+
 
 void path(int q, int r){
-	int path_array[N][N];
-	for(int i=0; i<=N-1; i++){
-		for(int j=0; j<=N-1; j++){
-			if(P[i][j]!=0){
-				path_array[i][j]=P[i][j]-1;
-			}
-			else{
-				path_array[i][j]=P[i][j];
-			}
-		}
-	}
-	cout<<endl;
-
-	if(path_array[q-1][r-1]!=0){
-		path(q-1,path_array[q-1][r-1]);
+	if(P[q-1][r-1]!=0){
+		path(q,P[q-1][r-1]);
 		cout<<" v"<<P[q-1][r-1];
-		path(path_array[q-1][r-1],r-1);
+		path(P[q-1][r-1],r);
 	}
 }
-
-// void path(int q, int r){
-// 	if(P[q][r]!=0){
-// 		path(q,P[q][r]);
-// 		cout<<" v"<<P[q][r];
-// 		path(P[q][r],r);
-// 	}
-// }
 
 int main(void){
     W[0][0]=0;
@@ -118,6 +84,8 @@ int main(void){
 	print_all(N,D);
 	print_all(N,P);
 	path(5,3);
+	cout<<endl;
+	path(3,2);
 	cout<<endl;
 	return 0;
 }

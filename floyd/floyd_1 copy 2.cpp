@@ -10,19 +10,19 @@ int P[N][N];
 
 void floyd(int n, const int W[][N], int D[][N], int P[][N]){
     int i, j, k;
-    for(i=0; i<=n-1; i++)
-        for(j=0; j<=n-1; j++)
+    for(i=1; i<=n; i++)
+        for(j=1; j<=n; j++)
             P[i][j]=0;
 	
-	for(i=0; i<=n-1; i++) //D=W;
-		for(j=0; j<=n-1; j++)
+	for(i=1; i<=n; i++) //D=W;
+		for(j=1; j<=n; j++)
 			D[i][j]=W[i][j];
 	
-	for(k=0; k<=n-1; k++){
-		for(i=0; i<=n-1; i++){
-			for(j=0; j<=n-1; j++){
+	for(k=1; k<=n; k++){
+		for(i=1; i<=n; i++){
+			for(j=1; j<=n; j++){
 				if(D[i][k]+D[k][j]<D[i][j]){
-					P[i][j]=k+1;
+					P[i][j]=k;
 					D[i][j]=D[i][k]+D[k][j];
 				}
 			}
@@ -33,8 +33,8 @@ void floyd(int n, const int W[][N], int D[][N], int P[][N]){
 }
 
 void print_all(int n, int array[][N]){
-	for(int i=0; i<=n-1; i++){
-		for(int j=0; j<=n-1; j++){
+	for(int i=1; i<=n; i++){
+		for(int j=1; j<=n; j++){
 			cout<<array[i][j]<<'\t';
 		}
 		cout<<endl;
@@ -57,34 +57,34 @@ void print_all(int n, int array[][N]){
 // 	cout<<endl;
 // }
 
-void path(int q, int r){
-	int path_array[N][N];
-	for(int i=0; i<=N-1; i++){
-		for(int j=0; j<=N-1; j++){
-			if(P[i][j]!=0){
-				path_array[i][j]=P[i][j]-1;
-			}
-			else{
-				path_array[i][j]=P[i][j];
-			}
-		}
-	}
-	cout<<endl;
-
-	if(path_array[q-1][r-1]!=0){
-		path(q-1,path_array[q-1][r-1]);
-		cout<<" v"<<P[q-1][r-1];
-		path(path_array[q-1][r-1],r-1);
-	}
-}
-
 // void path(int q, int r){
-// 	if(P[q][r]!=0){
-// 		path(q,P[q][r]);
-// 		cout<<" v"<<P[q][r];
-// 		path(P[q][r],r);
+// 	int path_array[N][N];
+// 	for(int i=0; i<=N-1; i++){
+// 		for(int j=0; j<=N-1; j++){
+// 			if(P[i][j]!=0){
+// 				path_array[i][j]=P[i][j]-1;
+// 			}
+// 			else{
+// 				path_array[i][j]=P[i][j];
+// 			}
+// 		}
+// 	}
+// 	cout<<endl;
+
+// 	if(path_array[q-1][r-1]!=0){
+// 		path(q-1,path_array[q-1][r-1]);
+// 		cout<<" v"<<P[q-1][r-1];
+// 		path(path_array[q-1][r-1],r-1);
 // 	}
 // }
+
+void path(int q, int r){
+	if(P[q][r]!=0){
+		path(q,P[q][r]);
+		cout<<" v"<<P[q][r];
+		path(P[q][r],r);
+	}
+}
 
 int main(void){
     W[0][0]=0;
