@@ -3,6 +3,11 @@
     "files.associations": {
         "iostream": "cpp",
         "ostream": "cpp",
-        "cmm_new2": "cpp"
+        "cmm_new2": "cpp",
+        "initializer_list": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     }
 }
