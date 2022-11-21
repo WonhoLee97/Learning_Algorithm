@@ -40,12 +40,24 @@ void dijkstra(int n, const int W[][N], int F[]){
         }
         length[vnear]=-1;
     }
+    for(int i=2; i<=n; i++){
+        cout<<touch[i]<<" ";
+    }
+    cout<<endl;
+
+    for(int i=2; i<=n; i++){
+        cout<<length[i]<<" ";
+    }
+    cout<<endl;
 }
 
 int main(void){
     
 
     dijkstra(N,W,F);
+    
+    
+    
     for(int i=0; i<=N; i++){
         cout<<F[i]<<" ";
     }
