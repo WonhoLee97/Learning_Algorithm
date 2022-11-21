@@ -1,12 +1,12 @@
 #include <iostream>
-#include <algorithm>
 #define inf 99999
 
 using namespace std;
 
-int R[6][5];
+int R[6][5]={0,};
 float minavg=0;
-float p[5]={0, 0.375, 0.375, 0.125, 0.125};
+float p[5]={0, 0.2, 0.3, 0.1, 0.4}; //자작 데이터
+//float p[5] = { 0,0.375,0.375,0.125,0.125 }; //예제 데이터
 float A[6][6];
 
 void optsearchtree(int n, const float p[], float& minavg, int R[][5]){
@@ -19,14 +19,13 @@ void optsearchtree(int n, const float p[], float& minavg, int R[][5]){
         R[i][i]=i;
         R[i][i-1]=0;
     }
+
     A[n+1][n]=0;
     R[n+1][n]=0;
     for(diagonal=1; diagonal<=n-1; diagonal++){
         for(i=1; i<=n-diagonal; i++){
             j=i+diagonal;
-            A[i][j]=A[i][i-1]+A[i+1][j];
-            R[i][j]=i;
-            for(k=i+1; k<=j; k++)
+            for(k=i; k<=j; k++)
                 if((A[i][k-1]+A[k+1][j])<A[i][j]){
                     A[i][j]=(A[i][k-1]+A[k+1][j]);
                     R[i][j]=k;
@@ -35,7 +34,6 @@ void optsearchtree(int n, const float p[], float& minavg, int R[][5]){
             for (int a = i; a <= j; a++) {
                    A[i][j] += p[a];
             }
-            
 
         }
     }
@@ -45,7 +43,7 @@ void optsearchtree(int n, const float p[], float& minavg, int R[][5]){
 int main(void){
     
     for(int i=1; i<=5; i++){ //초기화
-        for(int j=1; j<=5; j++){
+        for(int j=0; j<=4; j++){
             A[i][j]=inf;
         }
     }
