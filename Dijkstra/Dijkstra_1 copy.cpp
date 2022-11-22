@@ -1,9 +1,11 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
+#include <tuple>
 #define inf 99999
 #define N 6
 
 using namespace std;
-int F[N]={0,};
 int W[N][N]={
     {0, 0, 0, 0, 0, 0},
     {0, 0, 7, 4, 6, 1},
@@ -12,6 +14,7 @@ int W[N][N]={
     {0, inf, 3, inf, 0, inf},
     {0, inf, inf, inf, 1, 0}
 };
+vector<pair<int, int>> F;
 
 // int W[N][N]={
 //     {0, 0, 0, 0, 0, 0},
@@ -22,9 +25,9 @@ int W[N][N]={
 //     {0, inf, inf, inf, inf, 0}
 // };
 
-void dijkstra(int n, const int W[][N], int F[]){
+void dijkstra(int n, const int W[][N], vector<tuple<int, int, int>> F){
     int i, vnear;
-    int e;
+    //pair<int,int> e;
     int touch[n]; //2~n
     int length[n]; //2~n
     //F={}
@@ -51,8 +54,13 @@ void dijkstra(int n, const int W[][N], int F[]){
                 vnear=i;
             }
         }
-        e=touch[vnear];
-        F[c]=e;
+
+
+        // e.first=c+1;
+        // e.second=touch[vnear];
+        // F.push_back(e);
+
+
         for(i=2; i<=n-1; i++){
             if(length[vnear]+W[vnear][i]<length[i]){
                 length[i]=length[vnear]+W[vnear][i];
@@ -75,11 +83,25 @@ void dijkstra(int n, const int W[][N], int F[]){
 }
 
 int main(void){
-    
+    int V,E;
+    cout<<"Vertex : ";
+    cin>>V;
+    cout<<"Edge : ";
+    cin>>E;
+    for(int i=1; i<=E; i++){
+        cout<<"Input Graph_Vertex_Vertex_Weight"<<endl;
+        int v1, v2,v3;
+        cin>>v1>>v2>>v3;
+        F.push_back(make_tuple(v1,v2,v3));
+    }
+
 
     dijkstra(N,W,F);
-    for(int i=0; i<=N-2; i++){
-        cout<<F[i]<<" ";
-    }
+
+    // for(int i=0; i<=N-2; i++){
+    //     cout<<"test";
+    //     cout<<F.back().first<<"->"<<F.back().second<<endl;
+    //     F.pop_back();
+    // }
     cout<<endl;
 }
