@@ -67,7 +67,6 @@ void dijkstra(int n, const int W[][N], vector<pair<int, int>> F){
         }
         length[vnear]=-1;
     }
-
     cout<<"final touch"<<endl;
     for(int i=2; i<=n-1; i++){
         cout<<touch[i]<<" ";
