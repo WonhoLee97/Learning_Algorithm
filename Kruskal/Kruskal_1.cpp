@@ -1,35 +1,46 @@
 #include <iostream>
 #include <vector>
+#include <tuple>
 
-#define inf
-#define N 6
+#define inf 99999
+#define N 5
 
 using namespace std;
-vector<pair<int, int>> E;
-vector<pair<int, int>> F;
+vector<tuple<int, int, int>> E;
+vector<tuple<int, int, int>> F;
 
-// int W[N][N]={ //자작 데이터
+int W[N+1][N+1]={ //교재 입력데이터
+    {0, 0, 0, 0, 0, 0},
+    {0, 0, 1, 3, inf, inf},
+    {0, 1, 0, 3, 6, inf},
+    {0, 3, 3, 0, 4, 2},
+    {0, inf, 6, 4, 0, 5},
+    {0, inf, inf, 2, 5, 0}
+};
+
+// int W[N+1][N+1]={ //자작 입력데이터
 //     {0, 0, 0, 0, 0, 0},
-//     {0, 0, 1, 7, 4, 5},
-//     {0, inf, 0, 1, inf, 3},
-//     {0, inf, inf, 0, 1, inf},
-//     {0, inf, inf, inf, 0, inf},
-//     {0, inf, inf, inf, 1, 0}
+//     {0, 0, 1, 3, inf, inf},
+//     {0, 1, 0, 3, 6, inf},
+//     {0, 3, 3, 0, 4, 2},
+//     {0, inf, 6, 4, 0, 5},
+//     {0, inf, inf, 2, 5, 0}
 // };
 
-typedef int set_pointer;
+typedef int index;
+typedef index set_pointer;
 struct nodetype{
-    int parent;
+    index parent;
     int depth;
 };
 typedef nodetype universe[N]; 
 universe U;
-void makeset(int i){
+void makeset(index i){
     U[i].parent=i;
     U[i].depth=0;
 }
-set_pointer find(int i){
-    int j;
+set_pointer find(index i){
+    index j;
     j=i;
     while(U[j].parent!=j)
         j=U[j].parent;
@@ -52,28 +63,53 @@ bool equal(set_pointer p, set_pointer q){
         return false;
 }
 void initial(int n){
-    int i;
+    index i;
     for(i=1; i<=n; i++)
         makeset(i);
 }
 
-void kruskal(int n, int m, vector<pair<int, int>> E, vector<pair<int, int>> F){
-    int i, j;
+void kruskal(int n, int m, vector<tuple<int, int, int>> E, vector<tuple<int, int, int>> F){
+    index i, j;
     set_pointer p,q;
-    pair<int,int> e;
+    int k=0;
+    tuple<int,int,int> e;
     initial(n);
-    while(n-1){
-        e=make_pair(2,2);
-        // i,j=
+    while(F.size()<n-1){
+        e=E[k];
+        i=get<0>(e);
+        j=get<1>(e);
         p=find(i);
         q=find(j);
         if(!equal(p,q)){
             merge(p,q);
             F.push_back(e);
-        }
+        }        
+        k++;
     }
+    cout<<"Array F"<<endl;
+    for(int i=0; i<F.size(); i++){
+        cout<<get<0>(F[i])<<" -> "<< get<1>(F[i])<<"\t"<< get<2>(F[i]) << endl;
+    } 
 }
 
 int main(void){
-    kruskal(N,3,E,F);
+    //교재 입력데이터
+    E.push_back(make_tuple(1,2,1));
+    E.push_back(make_tuple(3,5,2));
+    E.push_back(make_tuple(1,3,3));
+    E.push_back(make_tuple(2,3,3));
+    E.push_back(make_tuple(3,4,4));
+    E.push_back(make_tuple(4,5,5));
+    E.push_back(make_tuple(2,4,6));
+
+    //자작 입력데이터
+    // E.push_back(make_tuple(1,2,1));
+    // E.push_back(make_tuple(3,5,2));
+    // E.push_back(make_tuple(1,3,3));
+    // E.push_back(make_tuple(2,3,3));
+    // E.push_back(make_tuple(3,4,4));
+    // E.push_back(make_tuple(4,5,5));
+    // E.push_back(make_tuple(2,4,6));
+    kruskal(N,7,E,F);
+    return 0;
 }
