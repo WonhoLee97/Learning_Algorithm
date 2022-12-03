@@ -9,24 +9,6 @@ using namespace std;
 vector<tuple<int, int, int>> E;
 vector<tuple<int, int, int>> F;
 
-int W[N+1][N+1]={ //교재 입력데이터
-    {0, 0, 0, 0, 0, 0},
-    {0, 0, 1, 3, inf, inf},
-    {0, 1, 0, 3, 6, inf},
-    {0, 3, 3, 0, 4, 2},
-    {0, inf, 6, 4, 0, 5},
-    {0, inf, inf, 2, 5, 0}
-};
-
-// int W[N+1][N+1]={ //자작 입력데이터
-//     {0, 0, 0, 0, 0, 0},
-//     {0, 0, 1, 3, inf, inf},
-//     {0, 1, 0, 3, 6, inf},
-//     {0, 3, 3, 0, 4, 2},
-//     {0, inf, 6, 4, 0, 5},
-//     {0, inf, inf, 2, 5, 0}
-// };
-
 typedef int index;
 typedef index set_pointer;
 struct nodetype{
@@ -74,6 +56,7 @@ void kruskal(int n, int m, vector<tuple<int, int, int>> E, vector<tuple<int, int
     int k=0;
     tuple<int,int,int> e;
     initial(n);
+
     while(F.size()<n-1){
         e=E[k];
         i=get<0>(e);
@@ -83,7 +66,9 @@ void kruskal(int n, int m, vector<tuple<int, int, int>> E, vector<tuple<int, int
         if(!equal(p,q)){
             merge(p,q);
             F.push_back(e);
+            
         }        
+
         k++;
     }
     cout<<"Array F"<<endl;
@@ -94,15 +79,6 @@ void kruskal(int n, int m, vector<tuple<int, int, int>> E, vector<tuple<int, int
 
 int main(void){
     //교재 입력데이터
-    E.push_back(make_tuple(1,2,1));
-    E.push_back(make_tuple(3,5,2));
-    E.push_back(make_tuple(1,3,3));
-    E.push_back(make_tuple(2,3,3));
-    E.push_back(make_tuple(3,4,4));
-    E.push_back(make_tuple(4,5,5));
-    E.push_back(make_tuple(2,4,6));
-
-    //자작 입력데이터
     // E.push_back(make_tuple(1,2,1));
     // E.push_back(make_tuple(3,5,2));
     // E.push_back(make_tuple(1,3,3));
@@ -110,6 +86,15 @@ int main(void){
     // E.push_back(make_tuple(3,4,4));
     // E.push_back(make_tuple(4,5,5));
     // E.push_back(make_tuple(2,4,6));
+
+    //자작 입력데이터
+    E.push_back(make_tuple(1,2,1));
+    E.push_back(make_tuple(1,3,2));
+    E.push_back(make_tuple(2,4,3));
+    E.push_back(make_tuple(3,5,3));
+    E.push_back(make_tuple(1,4,4));
+    E.push_back(make_tuple(4,5,5));
+    E.push_back(make_tuple(3,4,6));
     kruskal(N,7,E,F);
     return 0;
 }
