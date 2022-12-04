@@ -1,25 +1,30 @@
 #include <iostream>
+#include <algorithm>
 #define N 4
 using namespace std;
 
 typedef int index;
 
 int W=16; //무게의 합 최대
-int w[N+1]={0, 2, 5, 19, 5}; //weight
+int w[N+1]={0, 2, 5, 10, 5}; //weight
 int p[N+1]={0, 40, 30, 50, 10}; //profit
-int bestset[N];
-string include[N];
-int maxprofit=0;
-int numbest=0;
+string bestset[N+1];
+string include[N+1];
+int maxprofit;
+int numbest;
 int weight;
 int profit;
+int totweight;
+float bound;
    
-bool promising(index i);
+bool promising(index i); //, int profit, int weight
 void knapsack(index i, int profit, int weight){
     if(weight<=W and profit>maxprofit){
         maxprofit=profit;
         numbest=i;
-        //bestset=include; //배열복사
+        for(int c=0; c<=numbest; c++){ //배열 복사
+            bestset[c]=include[c];
+        }
     }
 
     if(promising(i)){
@@ -30,16 +35,13 @@ void knapsack(index i, int profit, int weight){
     }
 }
 
-bool promising(index i){
+bool promising(index i){//, int profit, int weight
     index j,k;
-    int totweight;
-    float bound;
-
     if(weight>=W)
         return false;
     else{
         j=i+1;
-        bound=profit;
+        bound=(float)profit;
         totweight=weight;
         while(j<=N and totweight+w[j]<=W){
             totweight=totweight+w[j];
@@ -47,17 +49,25 @@ bool promising(index i){
             j++;
         }
         k=j;
-        if(i<=N)
+        if(k<=N)
             bound=bound+(W-totweight)*p[k]/w[k];
         return bound>maxprofit;
     }
 }
     
 int main(void){
-    knapsack(N,0,0);
-    for(int i=0; i<N-1; i++){
-        cout<<bestset[i]<<endl;
+    knapsack(0,0,0);
+    cout<<"Best set"<<endl;
+    for(int c=0; c<=N; c++){
+        cout<<c<<'\t'<<bestset[c]<<endl;
     }
-    
+    cout<<endl;
+    int price=0;
+    for(int i=0; i<=numbest; i++){
+        if(bestset[i]=="yes")
+            cout<<i<<'\t'<<p[i]<<endl;
+            price+=p[i];
+    }
+    cout<<"Result price : "<<price<<endl;
 
 }
