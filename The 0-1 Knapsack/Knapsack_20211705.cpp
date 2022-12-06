@@ -1,16 +1,23 @@
 #include <iostream>
 #include <algorithm>
 #define N 4
-#define W 16
+// #define W 16 //교재 입력데이터
+#define W 10 //자작 입력데이터
 
 using namespace std;
 typedef int index;
 
-int w[N+1]={0, 2, 5, 10, 5}; //weight
-int p[N+1]={0, 40, 30, 50, 10}; //profit
+//교재 입력데이터
+// int w[N+1]={0, 2, 5, 10, 5}; //weight
+// int p[N+1]={0, 40, 30, 50, 10}; //profit
+
+//자작 입력데이터
+int w[N+1]={0, 3, 4, 6, 5}; //weight
+int p[N+1]={0, 8, 9, 12, 10}; //profit
+
 string bestset[N+1];
 string include[N+1];
-int maxprofit;
+int maxprofit=0;
 int numbest;
 
    
